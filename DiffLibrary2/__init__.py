@@ -22,6 +22,7 @@ execfile(os.path.join(THIS_DIR, 'version.py'))
 
 __version__ = VERSION
 
+
 class DiffLibrary2(keywords):
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = VERSION

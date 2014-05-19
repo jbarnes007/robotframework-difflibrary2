@@ -1,0 +1,10 @@
+<project name="Unit Test RobotFramework Diff Library" basedir="." default="build">
+
+	<property name="unit.test.path" value="DiffLibrary2/test/"/>	
+	<target name="build" description="Perform Unit Test">
+  		<echo>Unit Test Start</echo>
+    	<exec dir="${unit.test.path}" executable="python" failonerror="true">
+    		<arg line="test_diffKeywords.py" />
+		</exec>
+  </target>
+</project>

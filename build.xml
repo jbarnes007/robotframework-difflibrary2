@@ -1,13 +1,28 @@
-<project name="Unit Test RobotFramework Diff Library" basedir="." default="build">
+<project name="Unit Test RobotFramework Diff Library with code coverage" basedir="." default="build">
 
-	<property name="unit.test.path" value="DiffLibrary2/test/"/>
-	<property name="library.path" value="./"/>	
-	<target name="build" description="Perform Unit Test">
-  		<echo>Unit Test Start</echo>
-    	<exec dir="${unit.test.path}" executable="${python.executable}" failonerror="true">
-	    	<env key="PYTHONPATH" path="${library.path}"/>
-    		<arg line="test_diffKeywords.py" />
+	<property name="unit.test.path" value="DiffLibrary2/"/>
+		
+	<target name="build" description="Perform Unit Test with code coverage" 
+		depends="myConditionalTask-check, myConditionalTask-branch" if="myConditionalTask-check-property">
+  	
+		<echo>Unit Test Start</echo>
+    	<exec dir="${unit.test.path}" executable="nosetests" failonerror="true">
+    		<arg line="--cover-branches --with-coverage --cover-erase --cover-package=DiffLibrary2 --exe --cover-min-percentag=${cover.min.percentage} --cover-html" />
 		</exec>
 		<echo>Unit Test End</echo>
-  </target>
+  	</target>
+  
+  	<target name="myConditionalTask-branch" unless="myConditionalTask-check-property">
+    	<echo>Unit Test Start</echo>
+    	<exec dir="${unit.test.path}" executable="nosetests" failonerror="true">
+    		<arg line="--with-coverage --cover-erase --cover-package=DiffLibrary2 --exe --cover-min-percentag=${cover.min.percentage} --cover-html" />
+		</exec>
+		<echo>Unit Test End</echo>
+    </target>
+ 
+    <target name="myConditionalTask-check">
+        <condition property="myConditionalTask-check-property">
+            <equals arg1="${branch.coverage}" arg2="yes" trim="true"/>
+        </condition>
+    </target>
 </project>

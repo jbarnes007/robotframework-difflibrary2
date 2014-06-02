@@ -6,7 +6,7 @@
 		depends="myConditionalTask-check, myConditionalTask-branch" if="myConditionalTask-check-property">
   	
 		<echo>Unit Test Start</echo>
-    	<exec dir="${unit.test.path}" executable="nosetests" failonerror="true">
+    	<exec dir="${unit.test.path}" executable="${nosetests.path}" failonerror="true">
     		<arg line="--cover-branches --with-coverage --cover-erase --cover-package=DiffLibrary2 --exe --cover-min-percentag=${cover.min.percentage} --cover-html" />
 		</exec>
 		<echo>Unit Test End</echo>
@@ -14,7 +14,7 @@
   
   	<target name="myConditionalTask-branch" unless="myConditionalTask-check-property">
     	<echo>Unit Test Start</echo>
-    	<exec dir="${unit.test.path}" executable="nosetests" failonerror="true">
+    	<exec dir="${unit.test.path}" executable="${nosetests.path}" failonerror="true">
     		<arg line="--with-coverage --cover-erase --cover-package=DiffLibrary2 --exe --cover-min-percentag=${cover.min.percentage} --cover-html" />
 		</exec>
 		<echo>Unit Test End</echo>
